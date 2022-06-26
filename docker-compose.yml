@@ -1,0 +1,26 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=database
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=db_test
+    volumes:
+      - "./volumes/pg:/var/lib/postgresql/data"
+  db_test:
+    build: .
+    container_name: db_test
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/usr/app
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://database:123456@db:5432/db_db_test
+    command: node ./scripts/script.mjs

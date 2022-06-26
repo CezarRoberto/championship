@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Championship {
+  id          String   @id @unique @default(uuid())
+  name        String
+  description String
+  award       Int
+  winner      String   @default(dbgenerated("Null"))
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+
+  ChampionshipOnGame ChampionshipOnGame[]
+  @@map("championship")
+}
+
+model Team {
+  id         String   @id @unique @default(uuid())
+  name       String
+  initials   String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  team1      Game[]   @relation("team1")
+  team2      Game[]   @relation("team2")
+
+  @@map("team")
+}
+
+model Game {
+  id         String   @id @unique @default(uuid())
+  team1      Team     @relation("team1", fields: [team1_id], references: [id])
+  team1_id   String
+  team2      Team     @relation("team2", fields: [team2_id], references: [id])
+  team2_id   String
+  winner     String   @default(dbgenerated("Null"))
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  ChampionshipOnGame ChampionshipOnGame[]
+  @@map("game")
+}
+
+model ChampionshipOnGame {
+  id              String       @id @unique @default(uuid())
+  game_id         String
+  championship_id String
+  game            Game         @relation(fields: [game_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  championship    Championship @relation(fields: [championship_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
+}
