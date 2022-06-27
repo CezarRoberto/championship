@@ -7,7 +7,7 @@ Execute this command inside your direct root
 
      docker-compose up
 
-**DOCS**
+**Pattern System**
 
 Pattern - https://refactoring.guru/pt-br/design-patterns/singleton
 
