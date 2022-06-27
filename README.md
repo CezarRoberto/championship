@@ -17,7 +17,7 @@ Pattern - https://refactoring.guru/pt-br/design-patterns/singleton
 https://drive.google.com/file/d/1TSFtaV-kDqaNfO0e4OBhLiPSpPWxqPWM/view?usp=sharing
 
 
-**How to run**
+**Transcribe typescript to javascript**
 
 
 Execute this command inside your direct root
