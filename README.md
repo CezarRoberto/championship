@@ -15,3 +15,12 @@ Pattern - https://refactoring.guru/pt-br/design-patterns/singleton
 **DOCS - Postman**
 
 https://drive.google.com/file/d/1TSFtaV-kDqaNfO0e4OBhLiPSpPWxqPWM/view?usp=sharing
+
+
+**How to run**
+
+
+Execute this command inside your direct root
+   
+
+     yarn build && yarn start
