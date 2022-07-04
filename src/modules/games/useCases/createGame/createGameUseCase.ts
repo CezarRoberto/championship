@@ -9,10 +9,15 @@ class CreateGameUseCase {
         private readonly gameRepository: GameRepository,
     ) {}
 
-    async execute(team1_id: string, team2_id: string): Promise<Game> {
+    async execute(
+        team1_id: string,
+        team2_id: string,
+        championship_id: string,
+    ): Promise<Game> {
         const game = await this.gameRepository.create({
             team1_id,
             team2_id,
+            championship_id,
         });
         const winner = Object.values(game).toString();
 

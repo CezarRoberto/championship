@@ -4,11 +4,12 @@ import prismaClient from "@shared/infra/prisma";
 import { IGameRepository } from "../IGameRepository";
 
 class GameRepository implements IGameRepository {
-    async create({ team1_id, team2_id }: ICreateGameDTO): Promise<Game> {
+    async create({ team1_id, team2_id, championship_id }: ICreateGameDTO): Promise<Game> {
         const game = await prismaClient.game.create({
             data: {
                 team1_id,
                 team2_id,
+                championship_id,
             }
         })
 

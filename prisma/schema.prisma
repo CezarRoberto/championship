@@ -11,15 +11,16 @@ datasource db {
 }
 
 model Championship {
-  id          String   @id @unique @default(uuid())
-  name        String
-  description String
-  award       Int
-  winner      String   @default(dbgenerated("Null"))
-  created_at  DateTime @default(now())
-  updated_at  DateTime @default(now())
-
+  id                 String               @id @unique @default(uuid())
+  name               String
+  description        String
+  award              Int
+  winner             String?               @default(dbgenerated("Null"))
+  created_at         DateTime             @default(now())
+  updated_at         DateTime             @default(now())
+  game               Game[]
   ChampionshipOnGame ChampionshipOnGame[]
+
   @@map("championship")
 }
 
@@ -36,14 +37,16 @@ model Team {
 }
 
 model Game {
-  id         String   @id @unique @default(uuid())
-  team1      Team     @relation("team1", fields: [team1_id], references: [id])
-  team1_id   String
-  team2      Team     @relation("team2", fields: [team2_id], references: [id])
-  team2_id   String
-  winner     String   @default(dbgenerated("Null"))
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+  id              String       @id @unique @default(uuid())
+  team1           Team         @relation("team1", fields: [team1_id], references: [id])
+  team1_id        String
+  team2           Team         @relation("team2", fields: [team2_id], references: [id])
+  team2_id        String
+  winner          String?       @default(dbgenerated("Null"))
+  championship_id String
+  championship    Championship @relation(fields: [championship_id], references: [id], onDelete: Cascade, onUpdate: SetNull)
+  created_at      DateTime     @default(now())
+  updated_at      DateTime     @default(now())
 
   ChampionshipOnGame ChampionshipOnGame[]
   @@map("game")
